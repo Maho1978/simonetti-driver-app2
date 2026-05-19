@@ -15,8 +15,9 @@ import { formatDistanceToNow } from 'date-fns'
 import { de } from 'date-fns/locale'
 import { useOrders } from '../context/OrdersContext'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import { EmptyState, LoadingScreen } from '../components'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS, STATUS } from '../utils/constants'
+import { FONTS, SPACING, RADIUS, SHADOWS, STATUS } from '../utils/constants'
 import useLocationTracking from '../hooks/useLocationTracking'
 import useAutoStopTracking from '../hooks/useAutoStopTracking'
 import { useFeatures } from './ProfileScreen'
@@ -40,6 +41,7 @@ const WEATHER_CODES = {
 }
 
 const WeatherWidget = () => {
+  const { colors: COLORS } = useTheme()
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -97,6 +99,7 @@ const WeatherWidget = () => {
 
 // ── Tagesstatistiken ──────────────────────────────────────
 const DailyStats = ({ orders }) => {
+  const { colors: COLORS } = useTheme()
   const delivered = orders.filter(o => o.status === 'GELIEFERT')
   const active    = orders.filter(o => o.status === 'AN_FAHRER')
   const revenue   = delivered.reduce((s, o) => s + (Number(o.total) || 0), 0)
@@ -133,6 +136,7 @@ const DailyStats = ({ orders }) => {
 
 // ── Tracking Bar ──────────────────────────────────────────
 const TrackingBar = ({ driverId, activeOrderCount = 0 }) => {
+  const { colors: COLORS } = useTheme()
   const { isTracking, toggleTracking, currentLocation, error, stopTracking } = useLocationTracking(driverId)
   useAutoStopTracking({ isTracking, activeOrderCount, stopTracking })
   const speedKmh = currentLocation?.coords?.speed != null
@@ -172,6 +176,7 @@ const TrackingBar = ({ driverId, activeOrderCount = 0 }) => {
 
 // ── Routenoptimierung Banner ──────────────────────────────
 const RouteBanner = ({ orders }) => {
+  const { colors: COLORS } = useTheme()
   if (orders.length < 2) return null
 
   const handleOptimize = () => {
@@ -210,6 +215,7 @@ const RouteBanner = ({ orders }) => {
 
 // ── Order Card ────────────────────────────────────────────
 const OrderCard = ({ order, onPress, showTip }) => {
+  const { colors: COLORS } = useTheme()
   const status    = STATUS[order.status] || STATUS['AN_FAHRER']
   const orderNum  = order.order_number || order.id?.slice(-8).toUpperCase()
   const address   = formatAddress(order.delivery_address)
@@ -289,7 +295,9 @@ const OrderCard = ({ order, onPress, showTip }) => {
 
 // ── Hauptscreen ───────────────────────────────────────────
 export default function OrdersScreen({ navigation }) {
-  const { orders, isLoading, isRefreshing, refresh } = useOrders()
+  const { colors: COLORS } = useTheme()
+  const { activeOrders: ctxActive, deliveredOrders, isLoading, isRefreshing, refresh } = useOrders()
+  const orders = [...(ctxActive || []), ...(deliveredOrders || [])]
   const { driver } = useAuth()
   const { features } = useFeatures()
 

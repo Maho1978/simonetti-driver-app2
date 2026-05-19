@@ -5,7 +5,8 @@
 import React, { useState, useRef } from 'react'
 import { View, TextInput, Text, TouchableOpacity, Animated } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { COLORS, FONTS, SPACING, RADIUS } from '../utils/constants'
+import { useTheme } from '../context/ThemeContext'
+import { FONTS, SPACING, RADIUS } from '../utils/constants'
 
 const Input = ({
   label,
@@ -22,6 +23,7 @@ const Input = ({
   onSubmitEditing,
   blurOnSubmit,
 }) => {
+  const { colors: COLORS } = useTheme()
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const borderAnim = useRef(new Animated.Value(0)).current

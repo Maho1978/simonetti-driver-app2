@@ -17,13 +17,15 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons } from '@expo/vector-icons'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import { Button } from '../components'
 import Input from '../components/Input'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
+import { FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
 
 const { width, height } = Dimensions.get('window')
 
 export default function LoginScreen() {
+  const { colors: COLORS, isDark } = useTheme()
   const { login, isLoggingIn } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -68,11 +70,11 @@ export default function LoginScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
-      <StatusBar barStyle="light-content" backgroundColor={COLORS.bg} />
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={COLORS.bg} />
 
       {/* Background gradient */}
       <LinearGradient
-        colors={['#1a3028', COLORS.bg, COLORS.bg]}
+        colors={[isDark ? '#1a3028' : '#e8ecea', COLORS.bg, COLORS.bg]}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: height * 0.5 }}
       />
 

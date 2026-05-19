@@ -18,9 +18,17 @@ import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
 import * as ImagePicker from 'expo-image-picker'
 import { useOrders } from '../context/OrdersContext'
+import { useTheme } from '../context/ThemeContext'
 import { Button, Card, Divider, InfoRow } from '../components'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS, STATUS } from '../utils/constants'
+import { COLORS as DARK_COLORS, FONTS, SPACING, RADIUS, SHADOWS, STATUS } from '../utils/constants'
 import { useFeatures } from './ProfileScreen'
+
+// Sub-components (ItemRow, PriceRow, ConfirmModal, CodeModal) sind als const () => ()
+// arrow functions definiert, also referenzieren sie COLORS aus dem Module-Scope. Wir
+// haben hier den Modul-Import beibehalten, aber unter neuem Alias DARK_COLORS — diese
+// Sub-Components bleiben damit visuell im dark-theme. Der HauptScreen unten nutzt
+// useTheme() und wird voll themable.
+const COLORS = DARK_COLORS
 
 // ── Helfer ────────────────────────────────────────────────
 const formatAddress = (address) => {
@@ -183,6 +191,7 @@ const CodeModal = ({ visible, onConfirm, onCancel, expectedCode }) => {
 
 // ── Hauptscreen ───────────────────────────────────────────
 export default function OrderDetailScreen({ navigation, route }) {
+  const { colors: COLORS } = useTheme()
   const { order: initialOrder }       = route.params
   const { deliverOrder }              = useOrders()
   const { features }                  = useFeatures()

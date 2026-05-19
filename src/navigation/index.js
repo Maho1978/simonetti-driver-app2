@@ -3,17 +3,18 @@
 // Tab Bar mit korrektem Safe Area Abstand
 // ============================================================
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Ionicons } from '@expo/vector-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import { OrdersProvider } from '../context/OrdersContext'
 import { FeaturesProvider } from '../screens/ProfileScreen'
 import { LoadingScreen } from '../components'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
+import { FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
 import LoginScreen from '../screens/LoginScreen'
 import OrdersScreen from '../screens/OrdersScreen'
 import OrderDetailScreen from '../screens/OrderDetailScreen'
@@ -49,6 +50,8 @@ const TABS = [
 // ── Custom Tab Bar mit Safe Area ─────────────────────────────
 const CustomTabBar = ({ active, setActive }) => {
   const insets = useSafeAreaInsets()
+  const { colors: COLORS } = useTheme()
+  const styles = useMemo(() => makeStyles(COLORS), [COLORS])
 
   return (
     <View
@@ -89,6 +92,7 @@ const CustomTabBar = ({ active, setActive }) => {
 const CustomTabs = ({ navigation }) => {
   const [active, setActive] = useState('Orders')
   const ActiveScreen = TABS.find((t) => t.name === active).screen
+  const { colors: COLORS } = useTheme()
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -100,28 +104,44 @@ const CustomTabs = ({ navigation }) => {
   )
 }
 
-const AuthenticatedStack = () => (
-  <OrdersProvider>
-    <FeaturesProvider>
-      <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: COLORS.bg } }}>
-        <Stack.Screen name="MainTabs" component={CustomTabs} />
-        <Stack.Screen
-          name="OrderDetail"
-          component={OrderDetailScreen}
-          options={{ presentation: 'modal', gestureEnabled: true }}
-        />
-      </Stack.Navigator>
-    </FeaturesProvider>
-  </OrdersProvider>
-)
+const AuthenticatedStack = () => {
+  const { colors: COLORS } = useTheme()
+  return (
+    <OrdersProvider>
+      <FeaturesProvider>
+        <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: COLORS.bg } }}>
+          <Stack.Screen name="MainTabs" component={CustomTabs} />
+          <Stack.Screen
+            name="OrderDetail"
+            component={OrderDetailScreen}
+            options={{ presentation: 'modal', gestureEnabled: true }}
+          />
+        </Stack.Navigator>
+      </FeaturesProvider>
+    </OrdersProvider>
+  )
+}
 
 export default function RootNavigator() {
   const { driver, isLoading } = useAuth()
+  const { colors: COLORS, isDark } = useTheme()
 
   if (isLoading) return <LoadingScreen message="Simonetti Fahrer App..." />
 
+  const navTheme = {
+    ...(isDark ? DarkTheme : DefaultTheme),
+    colors: {
+      ...(isDark ? DarkTheme.colors : DefaultTheme.colors),
+      background: COLORS.bg,
+      card: COLORS.bgCard,
+      text: COLORS.textPrimary,
+      border: COLORS.border,
+      primary: COLORS.primary,
+    },
+  }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {driver ? (
           <Stack.Screen name="App" component={AuthenticatedStack} />
@@ -134,7 +154,7 @@ export default function RootNavigator() {
 }
 
 // ── Styles ────────────────────────────────────────────────────
-const styles = StyleSheet.create({
+const makeStyles = (COLORS) => StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     backgroundColor: COLORS.tabBar,

@@ -12,7 +12,8 @@ import {
   Animated,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
+import { useTheme } from '../context/ThemeContext'
+import { FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
 
 // ──────────────────────────────────────────────
 // BUTTON
@@ -28,6 +29,7 @@ export const Button = ({
   iconPosition = 'left',
   style,
 }) => {
+  const { colors: COLORS } = useTheme()
   const scale = useRef(new Animated.Value(1)).current
 
   const handlePressIn = () => {
@@ -134,6 +136,7 @@ export const Badge = ({ label, color, bg, size = 'md' }) => {
 // CARD
 // ──────────────────────────────────────────────
 export const Card = ({ children, style, onPress }) => {
+  const { colors: COLORS } = useTheme()
   if (onPress) {
     return (
       <TouchableOpacity
@@ -182,16 +185,21 @@ export { default as Input } from './Input'
 // ──────────────────────────────────────────────
 // DIVIDER
 // ──────────────────────────────────────────────
-export const Divider = ({ style }) => (
-  <View
-    style={[{ height: 1, backgroundColor: COLORS.border, marginVertical: SPACING.md }, style]}
-  />
-)
+export const Divider = ({ style }) => {
+  const { colors: COLORS } = useTheme()
+  return (
+    <View
+      style={[{ height: 1, backgroundColor: COLORS.border, marginVertical: SPACING.md }, style]}
+    />
+  )
+}
 
 // ──────────────────────────────────────────────
 // EMPTY STATE
 // ──────────────────────────────────────────────
-export const EmptyState = ({ icon = 'cube-outline', title, subtitle }) => (
+export const EmptyState = ({ icon = 'cube-outline', title, subtitle }) => {
+  const { colors: COLORS } = useTheme()
+  return (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.section }}>
     <View
       style={{
@@ -230,26 +238,32 @@ export const EmptyState = ({ icon = 'cube-outline', title, subtitle }) => (
       </Text>
     )}
   </View>
-)
+  )
+}
 
 // ──────────────────────────────────────────────
 // LOADING SCREEN
 // ──────────────────────────────────────────────
-export const LoadingScreen = ({ message = 'Laden...' }) => (
-  <View
-    style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center' }}
-  >
-    <ActivityIndicator size="large" color={COLORS.primary} />
-    <Text style={{ color: COLORS.textSecondary, marginTop: SPACING.lg, fontSize: FONTS.sizes.md }}>
-      {message}
-    </Text>
-  </View>
-)
+export const LoadingScreen = ({ message = 'Laden...' }) => {
+  const { colors: COLORS } = useTheme()
+  return (
+    <View
+      style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center' }}
+    >
+      <ActivityIndicator size="large" color={COLORS.primary} />
+      <Text style={{ color: COLORS.textSecondary, marginTop: SPACING.lg, fontSize: FONTS.sizes.md }}>
+        {message}
+      </Text>
+    </View>
+  )
+}
 
 // ──────────────────────────────────────────────
 // INFO ROW (for detail screen)
 // ──────────────────────────────────────────────
-export const InfoRow = ({ icon, label, value, valueStyle, onPress, accent }) => (
+export const InfoRow = ({ icon, label, value, valueStyle, onPress, accent }) => {
+  const { colors: COLORS } = useTheme()
+  return (
   <TouchableOpacity
     onPress={onPress}
     disabled={!onPress}
@@ -288,4 +302,5 @@ export const InfoRow = ({ icon, label, value, valueStyle, onPress, accent }) => 
     </View>
     {onPress && <Ionicons name="chevron-forward" size={16} color={COLORS.textMuted} />}
   </TouchableOpacity>
-)
+  )
+}

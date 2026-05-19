@@ -16,10 +16,12 @@ import { Ionicons } from '@expo/vector-icons'
 import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
 import { useOrders } from '../context/OrdersContext'
+import { useTheme } from '../context/ThemeContext'
 import { EmptyState, LoadingScreen, Badge } from '../components'
-import { COLORS, FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
+import { FONTS, SPACING, RADIUS, SHADOWS } from '../utils/constants'
 
 const HistoryCard = ({ order, onPress }) => {
+  const { colors: COLORS } = useTheme()
   const orderNumber = order.order_number || order.id?.slice(-8).toUpperCase()
   const itemCount = order.items?.reduce((sum, i) => sum + (i.quantity || 1), 0) || 0
   const deliveredAt = order.delivered_at ? new Date(order.delivered_at) : new Date(order.updated_at)
@@ -115,6 +117,7 @@ const HistoryCard = ({ order, onPress }) => {
 }
 
 export default function HistoryScreen({ navigation }) {
+  const { colors: COLORS } = useTheme()
   const { deliveredOrders, isLoading, isRefreshing, refresh } = useOrders()
 
   // Group by date
