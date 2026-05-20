@@ -166,9 +166,9 @@ const TrackingBar = ({ driverId, activeOrderCount = 0 }) => {
         </Text>
       </View>
       <Switch
-        value={isTracking} onValueChange={toggleTracking}
-        trackColor={{ false: COLORS.border, true: COLORS.primary }}
-        thumbColor="#fff" ios_backgroundColor={COLORS.border}
+        value={isTracking}
+        trackColor={{ false: '#6b7280', true: '#22c55e' }}
+        thumbColor="#fff" ios_backgroundColor="#6b7280"
       />
     </TouchableOpacity>
   )

@@ -79,7 +79,7 @@ export default function ProfileScreen() {
   const [customerTracking, setCustomerTracking] = useState(false)
   useEffect(() => {
     AsyncStorage.getItem(CUSTOMER_TRACKING_KEY)
-      .then(raw => { if (raw === 'true') setCustomerTracking(true) })
+      .then(raw => { if (raw !== null) setCustomerTracking(raw === 'true') })
       .catch(() => {})
   }, [])
   const handleCustomerTrackingToggle = (next) => {
@@ -336,9 +336,9 @@ const TrackingRow = ({ COLORS, styles, icon, iconColor, label, sub, value, onTog
     <Switch
       value={value}
       onValueChange={onToggle}
-      trackColor={{ false: COLORS.border, true: COLORS.primary }}
+      trackColor={{ false: '#6b7280', true: '#22c55e' }}
       thumbColor="#fff"
-      ios_backgroundColor={COLORS.border}
+      ios_backgroundColor="#6b7280"
     />
   </View>
 )
@@ -355,9 +355,9 @@ const FeatureRow = ({ COLORS, styles, icon, iconColor, label, sub, value, onTogg
     <Switch
       value={value}
       onValueChange={onToggle}
-      trackColor={{ false: COLORS.border, true: COLORS.primary }}
+      trackColor={{ false: '#6b7280', true: '#22c55e' }}
       thumbColor="#fff"
-      ios_backgroundColor={COLORS.border}
+      ios_backgroundColor="#6b7280"
     />
   </View>
 )
