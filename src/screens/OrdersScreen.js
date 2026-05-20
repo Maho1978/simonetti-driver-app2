@@ -109,7 +109,7 @@ const DailyStats = ({ orders }) => {
     { icon: 'bicycle-outline',         color: COLORS.warning, label: 'Aktiv',     value: active.length },
     { icon: 'checkmark-circle-outline',color: COLORS.success, label: 'Geliefert', value: delivered.length },
     { icon: 'cash-outline',            color: COLORS.primary, label: 'Umsatz',    value: `${revenue.toFixed(0)}€` },
-    { icon: 'heart-outline',           color: '#d4af37',      label: 'Trinkgeld', value: `${tips.toFixed(0)}€` },
+    { icon: 'heart-outline',           color: COLORS.gold,    label: 'Trinkgeld', value: `${tips.toFixed(0)}€` },
   ]
 
   return (
@@ -148,7 +148,7 @@ const TrackingBar = ({ driverId, activeOrderCount = 0 }) => {
       style={{
         flexDirection: 'row', alignItems: 'center',
         marginHorizontal: SPACING.lg, marginBottom: SPACING.md,
-        backgroundColor: isTracking ? '#111' : COLORS.bgCard,
+        backgroundColor: isTracking ? COLORS.bg : COLORS.bgCard,
         borderRadius: RADIUS.lg, paddingVertical: SPACING.sm + 2,
         paddingHorizontal: SPACING.md, borderWidth: 1,
         borderColor: isTracking ? COLORS.primary : COLORS.border,
@@ -158,7 +158,7 @@ const TrackingBar = ({ driverId, activeOrderCount = 0 }) => {
       <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: isTracking ? COLORS.primary : COLORS.border }} />
       <Ionicons name={isTracking ? 'navigate' : 'navigate-outline'} size={16} color={isTracking ? COLORS.primary : COLORS.textSecondary} />
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: FONTS.sizes.sm, fontWeight: FONTS.weights.semibold, color: isTracking ? COLORS.textInverse : COLORS.textSecondary }}>
+        <Text style={{ fontSize: FONTS.sizes.sm, fontWeight: FONTS.weights.semibold, color: isTracking ? COLORS.textPrimary : COLORS.textSecondary }}>
           {isTracking ? (speedKmh != null ? `Live · ${speedKmh} km/h` : 'Live-Tracking aktiv') : 'Live-Tracking'}
         </Text>
         <Text style={{ fontSize: FONTS.sizes.xs, color: COLORS.textTertiary }}>
@@ -197,18 +197,18 @@ const RouteBanner = ({ orders }) => {
       style={{
         flexDirection: 'row', alignItems: 'center', gap: SPACING.sm,
         marginHorizontal: SPACING.lg, marginBottom: SPACING.md,
-        backgroundColor: '#0c1a2e', borderRadius: RADIUS.lg,
-        padding: SPACING.md, borderWidth: 1, borderColor: '#1d4ed8',
+        backgroundColor: COLORS.infoBg, borderRadius: RADIUS.lg,
+        padding: SPACING.md, borderWidth: 1, borderColor: COLORS.info,
       }}
     >
-      <Ionicons name="git-branch-outline" size={18} color="#60a5fa" />
+      <Ionicons name="git-branch-outline" size={18} color={COLORS.info} />
       <View style={{ flex: 1 }}>
-        <Text style={{ color: '#60a5fa', fontSize: FONTS.sizes.sm, fontWeight: FONTS.weights.bold }}>
+        <Text style={{ color: COLORS.info, fontSize: FONTS.sizes.sm, fontWeight: FONTS.weights.bold }}>
           {orders.length} Lieferungen – Route optimieren
         </Text>
-        <Text style={{ color: '#93c5fd', fontSize: FONTS.sizes.xs }}>Tippen für beste Reihenfolge</Text>
+        <Text style={{ color: COLORS.textSecondary, fontSize: FONTS.sizes.xs }}>Tippen für beste Reihenfolge</Text>
       </View>
-      <Ionicons name="chevron-forward" size={14} color="#60a5fa" />
+      <Ionicons name="chevron-forward" size={14} color={COLORS.info} />
     </TouchableOpacity>
   )
 }
@@ -250,12 +250,12 @@ const OrderCard = ({ order, onPress, showTip }) => {
             {showTip && Number(order.tip) > 0 && (
               <View style={{
                 flexDirection: 'row', alignItems: 'center', gap: 4,
-                backgroundColor: 'rgba(212,175,55,0.15)', borderRadius: RADIUS.full,
+                backgroundColor: 'rgba(196, 151, 58, 0.15)', borderRadius: RADIUS.full,
                 paddingHorizontal: SPACING.sm, paddingVertical: 2,
-                borderWidth: 1, borderColor: 'rgba(212,175,55,0.35)',
+                borderWidth: 1, borderColor: 'rgba(196, 151, 58, 0.35)',
               }}>
-                <Ionicons name="heart" size={10} color="#d4af37" />
-                <Text style={{ color: '#d4af37', fontSize: FONTS.sizes.xs, fontWeight: FONTS.weights.bold }}>
+                <Ionicons name="heart" size={10} color={COLORS.gold} />
+                <Text style={{ color: COLORS.gold, fontSize: FONTS.sizes.xs, fontWeight: FONTS.weights.bold }}>
                   +{Number(order.tip).toFixed(2)} € TG
                 </Text>
               </View>

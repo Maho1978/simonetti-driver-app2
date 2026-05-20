@@ -5,48 +5,48 @@
 export const API_BASE_URL = 'https://www.eiscafe-simonetti.de'
 
 export const COLORS = {
-  // Brand
-  primary: '#4a5d54',
-  primaryDark: '#2d3d36',
-  primaryLight: '#6b8a7e',
-  primaryGlow: 'rgba(74, 93, 84, 0.15)',
-  primaryBg: 'rgba(74, 93, 84, 0.12)',
+  // Brand (Gold — Kunden-App Palette)
+  primary: '#C4973A',
+  primaryDark: '#A07828',
+  primaryLight: '#D4AF6A',
+  primaryGlow: 'rgba(196, 151, 58, 0.18)',
+  primaryBg: 'rgba(196, 151, 58, 0.14)',
 
   // Background (Dark Mode)
-  bg: '#0f1a16',
-  bgCard: '#1a2720',
-  bgCardLight: '#223029',
-  bgInput: '#1a2720',
-  dark: '#0f1a16',
+  bg: '#121212',
+  bgCard: '#1E1E1E',
+  bgCardLight: '#2A2A2A',
+  bgInput: '#1E1E1E',
+  dark: '#121212',
 
   // Tab Bar
-  tabBar: '#141f1a',
-  tabBarBorder: '#2d3d36',
-  tabActive: '#6b8a7e',
-  tabInactive: '#4a5d54',
+  tabBar: '#1A1A1A',
+  tabBarBorder: '#333333',
+  tabActive: '#D4AF6A',
+  tabInactive: '#666666',
 
   // Status Colors
-  success: '#22c55e',
-  successBg: 'rgba(34, 197, 94, 0.12)',
-  warning: '#f59e0b',
-  warningBg: 'rgba(245, 158, 11, 0.12)',
-  error: '#ef4444',
-  errorBg: 'rgba(239, 68, 68, 0.12)',
-  info: '#3b82f6',
-  infoBg: 'rgba(59, 130, 246, 0.12)',
+  success: '#4CAF50',
+  successBg: 'rgba(76, 175, 80, 0.14)',
+  warning: '#FF9800',
+  warningBg: 'rgba(255, 152, 0, 0.14)',
+  error: '#EF5350',
+  errorBg: 'rgba(239, 83, 80, 0.14)',
+  info: '#42A5F5',
+  infoBg: 'rgba(66, 165, 245, 0.14)',
 
   // Text
-  textPrimary: '#f0f4f2',
-  textSecondary: '#8fa89e',
-  textMuted: '#556b62',
-  textInverse: '#0f1a16',
+  textPrimary: '#F5F5F5',
+  textSecondary: '#AAAAAA',
+  textMuted: '#666666',
+  textInverse: '#1A1A1A',
 
   // Borders
-  border: '#2d3d36',
-  borderLight: 'rgba(74, 93, 84, 0.3)',
+  border: '#333333',
+  borderLight: 'rgba(51, 51, 51, 0.5)',
 
   // Special
-  gold: '#f59e0b',
+  gold: '#C4973A',
   white: '#ffffff',
   black: '#000000',
   overlay: 'rgba(0, 0, 0, 0.7)',
@@ -129,9 +129,9 @@ export const SHADOWS = {
     elevation: 12,
   },
   glow: {
-    shadowColor: '#4a5d54',
+    shadowColor: '#C4973A',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.6,
+    shadowOpacity: 0.5,
     shadowRadius: 12,
     elevation: 8,
   },
@@ -146,8 +146,8 @@ export const STATUS = {
   },
   GELIEFERT: {
     label: 'Geliefert',
-    color: '#22c55e',
-    bg: 'rgba(34, 197, 94, 0.12)',
+    color: '#4CAF50',
+    bg: 'rgba(76, 175, 80, 0.12)',
     icon: 'checkmark-circle-outline',
   },
   IN_BEARBEITUNG: {
@@ -158,8 +158,8 @@ export const STATUS = {
   },
   OFFEN: {
     label: 'Offen',
-    color: '#8fa89e',
-    bg: 'rgba(143, 168, 158, 0.12)',
+    color: '#888888',
+    bg: 'rgba(136, 136, 136, 0.12)',
     icon: 'ellipse-outline',
   },
 }

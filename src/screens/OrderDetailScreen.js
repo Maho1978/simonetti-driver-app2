@@ -65,7 +65,7 @@ const ItemRow = ({ item }) => (
         <Text style={{ color: COLORS.textMuted, fontSize: FONTS.sizes.xs, marginBottom: SPACING.xs, textTransform: 'uppercase', letterSpacing: 0.5 }}>Sorten</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.xs }}>
           {item.flavors.map((f, i) => (
-            <View key={i} style={{ backgroundColor: COLORS.primaryGlow, borderRadius: RADIUS.full, paddingHorizontal: SPACING.md, paddingVertical: 4, borderWidth: 1, borderColor: 'rgba(74,93,84,0.3)' }}>
+            <View key={i} style={{ backgroundColor: COLORS.primaryGlow, borderRadius: RADIUS.full, paddingHorizontal: SPACING.md, paddingVertical: 4, borderWidth: 1, borderColor: COLORS.borderLight }}>
               <Text style={{ color: COLORS.primaryLight, fontSize: FONTS.sizes.sm }}>{f}</Text>
             </View>
           ))}
@@ -284,7 +284,7 @@ export default function OrderDetailScreen({ navigation, route }) {
           <Text style={{ color: COLORS.textPrimary, fontSize: FONTS.sizes.xl, fontWeight: FONTS.weights.extrabold }}>#{orderNumber}</Text>
         </View>
         {order.customer_phone && (
-          <TouchableOpacity onPress={callCustomer} style={[s.iconBtn, { backgroundColor: COLORS.successBg, borderColor: 'rgba(34,197,94,0.3)' }]}>
+          <TouchableOpacity onPress={callCustomer} style={[s.iconBtn, { backgroundColor: COLORS.successBg, borderColor: COLORS.successBg }]}>
             <Ionicons name="call" size={20} color={COLORS.success} />
           </TouchableOpacity>
         )}
@@ -294,7 +294,7 @@ export default function OrderDetailScreen({ navigation, route }) {
 
         {/* Geliefert Banner */}
         {isDelivered && (
-          <View style={{ margin: SPACING.lg, backgroundColor: COLORS.successBg, borderRadius: RADIUS.xl, padding: SPACING.lg, flexDirection: 'row', alignItems: 'center', gap: SPACING.md, borderWidth: 1, borderColor: 'rgba(34,197,94,0.3)' }}>
+          <View style={{ margin: SPACING.lg, backgroundColor: COLORS.successBg, borderRadius: RADIUS.xl, padding: SPACING.lg, flexDirection: 'row', alignItems: 'center', gap: SPACING.md, borderWidth: 1, borderColor: COLORS.successBg }}>
             <Ionicons name="checkmark-circle" size={28} color={COLORS.success} />
             <Text style={{ color: COLORS.success, fontSize: FONTS.sizes.lg, fontWeight: FONTS.weights.bold }}>Erfolgreich geliefert! ✓</Text>
           </View>
@@ -308,8 +308,8 @@ export default function OrderDetailScreen({ navigation, route }) {
             style={{
               flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
               gap: SPACING.sm, marginHorizontal: SPACING.lg, marginBottom: SPACING.md,
-              backgroundColor: '#064e3b', borderRadius: RADIUS.lg, padding: SPACING.lg,
-              borderWidth: 1, borderColor: '#25D366' + '50',
+              backgroundColor: COLORS.bgCard, borderRadius: RADIUS.lg, padding: SPACING.lg,
+              borderWidth: 1, borderColor: '#25D36650',
             }}
           >
             <Ionicons name="logo-whatsapp" size={22} color="#25D366" />
@@ -388,7 +388,7 @@ export default function OrderDetailScreen({ navigation, route }) {
                     icon="cash-outline"
                     label="Wechselgeld"
                     value={order.notes.split(' | ').find(n => n.includes('Wechselgeld'))?.replace('Wechselgeld für: ', '') || ''}
-                    valueStyle={{ color: '#16a34a', fontWeight: 'bold', fontSize: 18 }}
+                    valueStyle={{ color: COLORS.success, fontWeight: 'bold', fontSize: 18 }}
                     accent
                   />
                 </>

@@ -74,7 +74,7 @@ export default function LoginScreen() {
 
       {/* Background gradient */}
       <LinearGradient
-        colors={[isDark ? '#1a3028' : '#e8ecea', COLORS.bg, COLORS.bg]}
+        colors={[isDark ? '#1E1E1E' : '#F0EDE6', COLORS.bg, COLORS.bg]}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: height * 0.5 }}
       />
 
@@ -98,7 +98,7 @@ export default function LoginScreen() {
           width: 150,
           height: 150,
           borderRadius: 75,
-          backgroundColor: 'rgba(74, 93, 84, 0.06)',
+          backgroundColor: COLORS.primaryGlow,
         }}
       />
 
